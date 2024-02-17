@@ -71,7 +71,7 @@ class Perceptron(Element):
         self.calculation_g(self.input_layer, self.input_vector)
         self.calculation_a(self.input_layer, self.input_vector, r)
 
-    def lerning(self, x, y, r):
+    def lerning(self, x, y, r, error):
         epohe = 0
         while True:                        
             for i in range(len(x)):
@@ -84,8 +84,8 @@ class Perceptron(Element):
                                
             epohe += 1 #вывод кол-ва итераций
             print('Кол-во эпох: ', epohe, end='\r')
-
-            if all(element <= 0.1 for element in delta): break
+            
+            if all(element <= error for element in delta): break
             # if math.isnan(self.output_layer[0].d - self.output_layer[0].y): 
             #     print('Ошибка')
             #     break
@@ -99,58 +99,3 @@ class Perceptron(Element):
         for i in self.output_layer:
             y.append(i.y)
         return y
-
-if __name__ == '__main__':
-    x=[
-        [1, 0, 1,
-         0, 1, 0,
-         1, 0, 1],
-
-        [1, 1, 1,
-         1, 0, 1,
-         1, 1, 1],
-
-        [0, 0, 1,
-         0, 1, 0,
-         1, 0, 1],
-
-        [1, 0, 1,
-         1, 0, 1,
-         1, 1, 1],
-
-        [1, 0, 0,
-         0, 1, 0,
-         1, 0, 1],
-
-        [1, 1, 1,
-         1, 0, 0,
-         1, 1, 1],
-
-        [1, 0, 1,
-         0, 1, 0,
-         0, 0, 1],
-        
-        [1, 1, 1,
-         0, 0, 1,
-         1, 1, 1]]
-
-    y = [[1], [0], [1], [0], [1], [0], [1], [0]]
-
-    perseptron = Perceptron(len(x[0]), 4, 4, len(y[0]))
-    perseptron.lerning(x, y, r=0.1)
-
-    data_1=[1, 0, 1,
-            0, 1, 0,
-            1, 0, 0]
-
-    data_2=[1, 1, 1,
-            1, 0, 1,
-            1, 0, 1]
-    
-    data_3=[1, 0, 1,
-            0, 0, 0,
-            1, 0, 1]
-
-    print(f'ЗНАЧЕНИЕ 1: {perseptron.predict(data_1)}')
-    print(f'ЗНАЧЕНИЕ 2: {perseptron.predict(data_2)}')
-    print(f'ЗНАЧЕНИЕ 3: {perseptron.predict(data_3)}')
