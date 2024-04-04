@@ -2,7 +2,7 @@
 from perceptron import Perceptron
 import pandas as pd
 
-df = pd.read_csv('perseptron/dollar.csv')
+df = pd.read_csv('dollar.csv')
 
 #подготовка данных
 rate = df['rate'].to_list()
